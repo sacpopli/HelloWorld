@@ -1,32 +1,31 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+name: Java CI with Maven
 
-name: Build and deploy WAR app to Azure Web App - sacpoplihelloworld
-
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
-  build-and-deploy:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
-
-    - name: Set up Java version
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
-        java-version: '8'
-
+        java-version: 1.8
     - name: Build with Maven
-      run: mvn package --file pom.xml
-
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      run: mvn -B package --file pom.xml
+      working-directory: complete
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v2
       with:
-        app-name: 'sacpoplihelloworld'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: '${{ github.workspace }}/target/*.war'
+        app-name: sacpoplihelloworld
+        package: my/target/*.jar
+
+    # Azure logout 
+    - name: logout
+      run: |
+        az logout
