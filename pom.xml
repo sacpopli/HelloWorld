@@ -36,10 +36,10 @@
         <version>1.8.0</version>
         <configuration>
           <schemaVersion>V2</schemaVersion>
-          <resourceGroup>helloWorldApi-1606216454322-rg</resourceGroup>
-          <appName>helloWorldApi-1606216454322</appName>
-          <pricingTier>P1v2</pricingTier>
-          <region>westeurope</region>
+          <resourceGroup>IBMDemoNov2020</resourceGroup>
+          <appName>helloworldapisacpopli</appName>
+          <pricingTier>B1:1</pricingTier>
+          <region>centralindia</region>
           <runtime>
             <os>linux</os>
             <javaVersion>jre8</javaVersion>
